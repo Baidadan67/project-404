@@ -1,3 +1,31 @@
+
+managers.py
+
+
+from django.contrib.auth.base_user import BaseUserManager
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, username, password=None, displayName=None, github=None, **other_fields):
+        #print("create user called")
+        if not username:
+            raise ValueError('username is needed')
+        if not password:
+            raise ValueError('password is needed')
+        user = self.model(username=username, displayName=displayName, github=github, **other_fields)
+        user.set_password(password)
+        user.save()
+        return user
+    
+    def create_superuser(self, username, password=None, **other_fields):
+        other_fields.setdefault('is_active', 'True')
+        other_fields.setdefault('is_staff', 'True')
+        other_fields.setdefault('is_superuser', 'True')
+
+        return self.create_user(username, password, **other_fields)
+
+
+models.py
+
 from django.db import models
 from uuid import uuid4
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -23,9 +51,16 @@ class Author(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         #return self.username
-        return self.username
+        return self.displayName
 
     @property
     def url(self):
         return self.host + "authors/" + str(self.uuid)
     
+admin
+
+from django.contrib import admin
+from .models import Author
+# Register your models here.
+
+admin.site.register(Author)
