@@ -1,7 +1,7 @@
 from django.db import models
 from uuid import uuid4
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from .managers import CustomUserManager
+from .managers import AuthorManager
 # Create your models here.
 
 class Author(AbstractBaseUser, PermissionsMixin):
@@ -19,7 +19,7 @@ class Author(AbstractBaseUser, PermissionsMixin):
     
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
-    objects = CustomUserManager()
+    objects = AuthorManager()
     
     def __str__(self):
         #return self.username

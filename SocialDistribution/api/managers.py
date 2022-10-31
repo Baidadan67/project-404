@@ -1,6 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager
 
-class CustomUserManager(BaseUserManager):
+class AuthorManager(BaseUserManager):
     def create_user(self, username, password=None, displayName=None, github=None, **other_fields):
         #print("create user called")
         if not username:
