@@ -8,7 +8,7 @@ class Author(AbstractBaseUser, PermissionsMixin):
     
     type = models.CharField(default="authors", max_length=255)
     username = models.CharField(max_length=30, unique=True)
-    uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     host = models.CharField(max_length=255, blank=True, default='http://127.0.0.1:8001/')
     
     displayName = models.CharField(max_length=255, null=True, blank=True)
@@ -19,7 +19,7 @@ class Author(AbstractBaseUser, PermissionsMixin):
     
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
-    objects = AuthorManager()
+    
     
     def __str__(self):
         #return self.username
@@ -27,5 +27,5 @@ class Author(AbstractBaseUser, PermissionsMixin):
 
     @property
     def url(self):
-        return self.host + "authors/" + str(self.uuid)
-    
+        return self.host + "authors/" + str(self.id)
+    objects = AuthorManager()
