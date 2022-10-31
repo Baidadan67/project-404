@@ -54,9 +54,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'SocialDistribution.urls'
 
+#LOGIN_REDIRECT_URL = "home"
+#LOGOUT_REDIRECT_URL = "home"
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        #'DIRS': [BASE_DIR / "frontend" / "templates"],
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
